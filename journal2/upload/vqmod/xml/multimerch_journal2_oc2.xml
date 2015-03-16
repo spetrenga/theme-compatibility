@@ -1,0 +1,407 @@
+<?xml version="1.0" ?>
+<!DOCTYPE modification [
+]>
+<modification>
+	<!-- opencart2 loader magic -->
+	<file name="system/engine/loader.php">
+		<operation>
+			<search position="replace" offset="8"><![CDATA[
+				final class Loader {
+			]]></search>
+			<add><![CDATA[ final class Loader { ]]></add>
+		</operation>
+	</file>	
+
+	<!-- css file -->
+	<file name="catalog/view/theme/journal2/template/common/header.tpl">
+		<operation error="skip">
+			<search position="after"><![CDATA[$this->journal2->minifier->addStyle('catalog/view/theme/journal2/css/icons.css');]]></search>
+			<add><![CDATA[$this->journal2->minifier->addStyle('catalog/view/theme/journal2/css/mm.css');]]></add>
+		</operation>
+	</file>
+
+  <!-- add to cart -->
+  <file name="catalog/view/theme/journal2/template/journal2/module/carousel_product.tpl,catalog/view/theme/journal2/template/journal2/module/custom_sections_product.tpl,catalog/view/theme/journal2/template/journal2/module/super_filter_product.tpl">
+    <operation error="skip">
+      <search position="replace"><![CDATA[
+      addToCart
+      ]]></search>
+      <add><![CDATA[
+      ms_addToCart
+      ]]></add>
+    </operation>
+  </file>
+	
+	<!-- journal layout -->
+	<file name="catalog/view/theme/journal2/template/multiseller/*.tpl,catalog/view/theme/journal2/template/account/register-seller.tpl">
+		<!-- add #container to .container -->
+		<operation error="skip">
+			<search position="replace"><![CDATA[<div class="container]]></search>
+			<add><![CDATA[<div id="container" class="container]]></add>
+		</operation>
+
+		<!-- add .success to .alert.alert-success -->
+		<operation error="skip">
+            <search position="replace"><![CDATA[<div class="alert alert-success">]]></search>
+            <add><![CDATA[<div class="alert alert-success success">]]></add>
+        </operation>
+        <operation error="skip">
+            <search position="replace"><![CDATA[<div class="alert alert-<?php echo $statusclass; ?>"><?php echo $statustext; ?></div>]]></search>
+            <add><![CDATA[<div class="alert alert-<?php echo $statusclass; ?> <?php echo $statusclass === 'success' ? 'success' : ''; ?>"><?php echo $statustext; ?></div>]]></add>
+        </operation>
+
+        <!-- add .information to .alert.alert-warning -->
+        <operation error="skip">
+            <search position="replace"><![CDATA[<div class="alert alert-warning">]]></search>
+            <add><![CDATA[<div class="alert alert-warning information">]]></add>
+        </operation>
+        
+        <!-- add .heading-title to h1 -->
+		<operation error="skip">
+			<search position="replace"><![CDATA[<h1>]]></search>
+			<add><![CDATA[<h1 class="heading-title">]]></add>
+		</operation>
+
+		<!--  add .secondary-title to h2 -->
+    	<operation error="skip">
+        	<search position="replace"><![CDATA[<h2>]]></search>
+        	<add><![CDATA[<h2 class="secondary-title">]]></add>
+    	</operation>    	
+
+    	<!-- add .button to .btn.btn-* -->
+		<operation error="skip">
+			<search position="replace"><![CDATA[btn btn-]]></search>
+			<add><![CDATA[btn button btn-]]></add>
+		</operation>
+
+		<!-- move $column_right; -->
+		<operation error="skip">
+            <search position="replace"><![CDATA[<div class="row"><?php echo $column_left; ?>]]></search>
+            <add><![CDATA[<div class="row"><?php echo $column_left; ?><?php echo $column_right; ?>]]></add>
+        </operation>
+        <operation error="skip">
+            <search position="replace"><![CDATA[<?php echo $column_right; ?></div>]]></search>
+            <add><![CDATA[</div>]]></add>
+        </operation>
+	</file>
+
+    <!-- account seller page -->
+    <file name="catalog/view/theme/journal2/template/account/register-seller.tpl">
+        <operation error="skip">
+            <search position="replace"><![CDATA[<p>]]></search>
+            <add><![CDATA[<p class="account-text">]]></add>
+        </operation>
+
+        <operation error="skip">
+            <search position="replace"><![CDATA[<legend>]]></search>
+            <add><![CDATA[<h2 class="secondary-title">]]></add>
+        </operation>
+
+        <operation error="skip">
+            <search position="replace"><![CDATA[</legend>]]></search>
+            <add><![CDATA[</h2>]]></add>
+        </operation>
+    </file>
+
+    <!-- account product page -->
+    <file name="catalog/view/theme/journal2/template/multiseller/account-product-form.tpl,catalog/view/theme/journal2/template/multiseller/account-stats.tpl">
+    	<operation error="skip">
+            <search position="replace"><![CDATA[<ul id="general-tabs" class="nav nav-tabs">]]></search>
+            <add><![CDATA[<ul id="tabs" class="nav nav-tabs htabs">]]></add>
+        </operation>
+
+        <operation error="skip">
+            <search position="replace"><![CDATA[<ul class="nav nav-tabs">]]></search>
+            <add><![CDATA[<ul id="tabs" class="nav nav-tabs htabs">]]></add>
+        </operation>
+        
+        <operation error="skip">
+            <search position="replace"><![CDATA[<div class="tab-content ms-product">]]></search>
+            <add><![CDATA[<div class="tabs-content ms-product">]]></add>
+        </operation>
+        
+        <operation error="skip">
+            <search position="replace"><![CDATA[tab-pane]]></search>
+            <add><![CDATA[tab-pane tab-content]]></add>
+        </operation>
+
+        <operation error="skip">
+            <search position="replace"><![CDATA[<div class="tab-content">]]></search>
+            <add><![CDATA[<div>]]></add>
+        </operation>
+    </file>
+
+    <!-- account dashboard page -->
+    <file name="catalog/view/theme/journal2/template/multiseller/account-dashboard.tpl">
+    	<!--  add .secondary-title to h3 -->
+    	<operation error="skip">
+        	<search position="replace"><![CDATA[<h3>]]></search>
+        	<add><![CDATA[<h3 class="secondary-title">]]></add>
+    	</operation>
+    </file>
+
+    <!-- account seller profile page -->
+    <file name="catalog/view/theme/journal2/template/multiseller/catalog-seller-profile.tpl">
+    	<!--  add .secondary-title to h3 -->
+    	<operation error="skip">
+        	<search position="replace" index="1"><![CDATA[<h3>]]></search>
+        	<add><![CDATA[<h3 class="secondary-title">]]></add>
+    	</operation>
+    </file>
+
+    <!-- catalog-seller-products page -->
+    <file name="catalog/view/theme/journal2/template/multiseller/catalog-seller-products.tpl">
+    	<operation error="skip">
+        	<search position="replace"><![CDATA[<h2 class="secondary-title">]]></search>
+        	<add><![CDATA[<h1 class="heading-title">]]></add>
+    	</operation>
+
+    	<operation error="skip">
+        	<search position="replace" offset="89"><![CDATA[<?php if ($seller['products']) { ?>]]></search>
+        	<add><![CDATA[
+        		<?php if ($seller['products']) { ?>
+      <div class="product-filter">
+        <div class="display">
+          <a onclick="Journal.gridView()" class="grid-view"><?php echo $this->journal2->settings->get("category_grid_view_icon", $button_grid); ?></a>
+          <a onclick="Journal.listView()" class="list-view"><?php echo $this->journal2->settings->get("category_list_view_icon", $button_list); ?></a>
+        </div>
+        <!-- <div class="product-compare"><a href="<?php //echo $compare; ?>" id="compare-total"><?php echo $text_compare; ?></a></div> -->
+        <div class="limit"><b><?php echo $text_limit; ?></b>
+          <select onchange="location = this.value;">
+            <?php foreach ($limits as $limits) { ?>
+            <?php if ($limits['value'] == $limit) { ?>
+            <option value="<?php echo $limits['href']; ?>" selected="selected"><?php echo $limits['text']; ?></option>
+            <?php } else { ?>
+            <option value="<?php echo $limits['href']; ?>"><?php echo $limits['text']; ?></option>
+            <?php } ?>
+            <?php } ?>
+          </select>
+        </div>
+        <div class="sort"><b><?php echo $text_sort; ?></b>
+          <select onchange="location = this.value;">
+            <?php foreach ($sorts as $sorts) { ?>
+            <?php if ($sorts['value'] == $sort . '-' . $order) { ?>
+            <option value="<?php echo $sorts['href']; ?>" selected="selected"><?php echo $sorts['text']; ?></option>
+            <?php } else { ?>
+            <option value="<?php echo $sorts['href']; ?>"><?php echo $sorts['text']; ?></option>
+            <?php } ?>
+            <?php } ?>
+          </select>
+        </div>
+      </div>
+      <div class="row main-products product-list" data-grid-classes="<?php echo $this->journal2->settings->get('product_grid_classes'); ?> display-<?php echo $this->journal2->settings->get('product_grid_wishlist_icon_display'); ?> <?php echo $this->journal2->settings->get('product_grid_button_block_button'); ?>">
+        <?php foreach ($seller['products'] as $product) { ?>     
+        <div class="product-list-item xs-100 sm-100 md-100 lg-100 xl-100">
+          <div class="product-thumb">
+            <div class="image">
+              <a href="<?php echo $product['href']; ?>" <?php if(isset($product['thumb2']) && $product['thumb2']): ?> class="has-second-image" style="background: url('<?php echo $product['thumb2']; ?>') no-repeat;" <?php endif; ?>>
+                  <img class="lazy first-image" width="<?php echo $this->journal2->settings->get('config_image_width'); ?>" height="<?php echo $this->journal2->settings->get('config_image_height'); ?>" src="<?php echo $this->journal2->settings->get('product_dummy_image'); ?>" data-src="<?php echo $product['thumb']; ?>" title="<?php echo $product['name']; ?>" alt="<?php echo $product['name']; ?>" />
+              </a>
+              <?php if (isset($product['labels']) && is_array($product['labels'])): ?>
+              <?php foreach ($product['labels'] as $label => $name): ?>
+              <?php if ($label === 'outofstock'): ?>
+              <img class="outofstock" <?php echo Journal2Utils::getRibbonSize($this->journal2->settings->get('out_of_stock_ribbon_size')); ?> style="position: absolute; top: 0; left: 0" src="<?php echo Journal2Utils::generateRibbon($name, $this->journal2->settings->get('out_of_stock_ribbon_size'), $this->journal2->settings->get('out_of_stock_font_color'), $this->journal2->settings->get('out_of_stock_bg')); ?>" alt="" />
+              <?php else: ?>
+              <span class="label-<?php echo $label; ?>"><b><?php echo $name; ?></b></span>
+              <?php endif; ?>
+              <?php endforeach; ?>
+              <?php endif; ?>
+              <?php if($this->journal2->settings->get('product_grid_wishlist_icon_position') === 'image' && $this->journal2->settings->get('product_grid_wishlist_icon_display', '') === 'icon'): ?>
+                  <div class="wishlist"><a onclick="addToWishList('<?php echo $product['product_id']; ?>');" class="hint--top" data-hint="<?php echo $button_wishlist; ?>"><i class="wishlist-icon"></i><span class="button-wishlist-text"><?php echo $button_wishlist;?></span></a></div>
+                  <div class="compare"><a onclick="addToCompare('<?php echo $product['product_id']; ?>');" class="hint--top" data-hint="<?php echo $button_compare; ?>"><i class="compare-icon"></i><span class="button-compare-text"><?php echo $button_compare;?></span></a></div>
+              <?php endif; ?>
+            </div>
+            <div class="product-details">
+              <div class="caption">
+                <h4 class="name"><a href="<?php echo $product['href']; ?>"><?php echo $product['name']; ?></a></h4>
+                <p class="description"><?php echo $product['description']; ?></p>
+                <?php if ($product['rating']) { ?>
+                <div class="rating">
+                  <?php for ($i = 1; $i <= 5; $i++) { ?>
+                  <?php if ($product['rating'] < $i) { ?>
+                  <span class="fa fa-stack"><i class="fa fa-star-o fa-stack-2x"></i></span>
+                  <?php } else { ?>
+                  <span class="fa fa-stack"><i class="fa fa-star fa-stack-2x"></i><i class="fa fa-star-o fa-stack-2x"></i></span>
+                  <?php } ?>
+                  <?php } ?>
+                </div>
+                <?php } ?>
+                <?php if ($product['price']) { ?>
+                <p class="price">
+                  <?php if (!$product['special']) { ?>
+                  <?php echo $product['price']; ?>
+                  <?php } else { ?>
+                  <span class="price-old"><?php echo $product['price']; ?></span> <span class="price-new" <?php echo isset($product['date_end']) && $product['date_end'] ? "data-end-date='{$product['date_end']}'" : ""; ?>><?php echo $product['special']; ?></span>
+                  <?php } ?>
+                  <?php if ($product['tax']) { ?>
+                  <span class="price-tax"><?php echo $text_tax; ?> <?php echo $product['tax']; ?></span>
+                  <?php } ?>
+                </p>
+                <?php } ?>
+              </div>
+              <div class="button-group">
+                <?php if (Journal2Utils::isEnquiryProduct($this, $product['product_id'])): ?>
+                <div class="cart enquiry-button">
+                  <a href="javascript:Journal.openPopup('<?php echo $this->journal2->settings->get('enquiry_popup_code'); ?>', '<?php echo $product['product_id']; ?>');" data-clk="addToCart('<?php echo $product['product_id']; ?>');" class="button hint--top" data-hint="<?php echo $this->journal2->settings->get('enquiry_button_text'); ?>"><?php echo $this->journal2->settings->get('enquiry_button_icon') . '<span class="button-cart-text">' . $this->journal2->settings->get('enquiry_button_text') . '</span>'; ?></a>
+                </div>
+                <?php else: ?>
+                <div class="cart <?php echo isset($product['labels']) && is_array($product['labels']) && isset($product['labels']['outofstock']) ? 'outofstock' : ''; ?>">
+                  <a onclick="addToCart('<?php echo $product['product_id']; ?>');" class="button hint--top" data-hint="<?php echo $button_cart; ?>"><i class="button-left-icon"></i><span class="button-cart-text"><?php echo $button_cart; ?></span><i class="button-right-icon"></i></a>
+                </div>
+                <?php endif; ?>
+                <div class="wishlist"><a onclick="addToWishList('<?php echo $product['product_id']; ?>');" class="hint--top" data-hint="<?php echo $button_wishlist; ?>"><i class="wishlist-icon"></i><span class="button-wishlist-text"><?php echo $button_wishlist;?></span></a></div>
+                <div class="compare"><a onclick="addToCompare('<?php echo $product['product_id']; ?>');" class="hint--top" data-hint="<?php echo $button_compare; ?>"><i class="compare-icon"></i><span class="button-compare-text"><?php echo $button_compare;?></span></a></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <?php } ?>
+      </div>
+      <div class="row pagination">
+        <div class="col-sm-6 text-left links"><?php echo $pagination; ?></div>
+        <div class="col-sm-6 text-right results"><?php echo $results; ?></div>
+      </div>
+      <?php } else { ?>
+      <p><?php echo $text_empty; ?></p>
+      <div class="buttons">
+        <div class="pull-right"><a href="<?php echo $continue; ?>" class="btn btn-primary"><?php echo $button_continue; ?></a></div>
+      </div>
+      <?php } ?>
+        	]]></add>
+    	</operation>
+
+    	<operation error="skip">
+  			<search position="before" offset="-1"><![CDATA[<?php echo $footer; ?>]]></search>
+  			<add><![CDATA[
+                  <script>Journal.applyView('<?php echo $this->journal2->settings->get("product_view", "grid"); ?>');</script>
+      			<?php if ($this->journal2->settings->get('show_countdown', 'never') !== 'never'): ?>
+      			<script>Journal.enableCountdown();</script>
+      			<?php endif; ?>  	
+              ]]></add>
+  		</operation>    	
+    </file>
+
+    <!-- catalog-seller page -->
+    <file name="catalog/view/theme/journal2/template/multiseller/catalog-seller.tpl">
+    	<!-- filter bar -->
+		<operation error="skip">
+		  <search position="replace" offset="84"><![CDATA[<?php if (isset($sellers) && $sellers) { ?>]]></search>
+		  <add><![CDATA[
+		    <?php if (isset($sellers) && $sellers) { ?>
+      <div class="product-filter">
+        <div class="display">
+          <a onclick="Journal.gridView()" class="grid-view"><?php echo $this->journal2->settings->get("category_grid_view_icon", $button_grid); ?></a>
+          <a onclick="Journal.listView()" class="list-view"><?php echo $this->journal2->settings->get("category_list_view_icon", $button_list); ?></a>
+        </div>
+        <!-- <div class="product-compare"><a href="<?php //echo $compare; ?>" id="compare-total"><?php echo $text_compare; ?></a></div> -->
+        <div class="limit"><b><?php echo $text_limit; ?></b>
+          <select onchange="location = this.value;">
+            <?php foreach ($limits as $limits) { ?>
+            <?php if ($limits['value'] == $limit) { ?>
+            <option value="<?php echo $limits['href']; ?>" selected="selected"><?php echo $limits['text']; ?></option>
+            <?php } else { ?>
+            <option value="<?php echo $limits['href']; ?>"><?php echo $limits['text']; ?></option>
+            <?php } ?>
+            <?php } ?>
+          </select>
+        </div>
+        <div class="sort"><b><?php echo $text_sort; ?></b>
+          <select onchange="location = this.value;">
+            <?php foreach ($sorts as $sorts) { ?>
+            <?php if ($sorts['value'] == $sort . '-' . $order) { ?>
+            <option value="<?php echo $sorts['href']; ?>" selected="selected"><?php echo $sorts['text']; ?></option>
+            <?php } else { ?>
+            <option value="<?php echo $sorts['href']; ?>"><?php echo $sorts['text']; ?></option>
+            <?php } ?>
+            <?php } ?>
+          </select>
+        </div>
+      </div>
+
+      <div class="row main-products product-list" data-grid-classes="<?php echo $this->journal2->settings->get('product_grid_classes'); ?> display-<?php echo $this->journal2->settings->get('product_grid_wishlist_icon_display'); ?> <?php echo $this->journal2->settings->get('product_grid_button_block_button'); ?>">
+		<?php foreach ($sellers as $seller) { ?>
+		  <div class="product-layout product-list col-xs-12">
+		  <div class="product-thumb">
+			<div class="image">
+				<a href="<?php echo $seller['href']; ?>"><img src="<?php echo $seller['thumb']; ?>" title="<?php echo $seller['nickname']; ?>" alt="<?php echo $seller['nickname']; ?>" /></a>
+			</div>
+
+			<div>
+            <div class="caption">
+				<h4 class="name"><a href="<?php echo $seller['href']; ?>"><?php echo $seller['nickname']; ?></a></h4>
+
+				<?php if ($seller['country']) { ?>
+					<p class="country">
+						<b><?php echo $ms_catalog_sellers_country; ?></b>
+						<img class="country-flag" src="<?php echo $seller['country_flag']; ?>" alt="<?php echo $seller['country']; ?>" title="<?php echo $seller['country']; ?>" /> <span class="country-name"><?php echo $seller['country']; ?></span>
+					</p>
+				<?php } ?>
+
+				<?php if ($seller['company']) { ?>
+					<p class="company"><b><?php echo $ms_catalog_sellers_company; ?></b> <?php echo $seller['company']; ?></p>
+				<?php } ?>
+
+				<?php if ($seller['website']) { ?>
+					<p class="website"><b><?php echo $ms_catalog_sellers_website; ?></b> <?php echo $seller['website']; ?></p>
+				<?php } ?>
+
+				<p class="totalsales"><b><?php echo $ms_catalog_sellers_totalsales; ?></b> <?php echo $seller['total_sales']; ?></p>
+				<p class="totalproducts"><b><?php echo $ms_catalog_sellers_totalproducts; ?></b> <?php echo $seller['total_products']; ?></p>
+			</div>
+			</div>
+			<div class="description seller-description"><?php echo $seller['description']; ?></div>
+		  </div>
+		  </div>
+		<?php } ?>
+		</div>
+
+      <div class="row pagination">
+        <div class="col-sm-6 text-left links"><?php echo $pagination; ?></div>
+        <div class="col-sm-6 text-right results"><?php echo $results; ?></div>
+      </div>
+	<?php } else { ?>
+		<div class="content"><?php echo $ms_catalog_sellers_empty; ?></div>
+	    <div class="buttons">
+			<div class="pull-right"><a href="<?php echo $continue; ?>" class="btn btn-primary"><?php echo $button_continue; ?></a></div>
+	    </div>
+	<?php } ?>
+				  ]]></add>
+		</operation>
+		<operation error="skip">
+  			<search position="before" offset="-1"><![CDATA[<?php echo $footer; ?>]]></search>
+  			<add><![CDATA[
+                  <script>Journal.applyView('<?php echo $this->journal2->settings->get("product_view", "grid"); ?>');</script>
+              ]]></add>
+  		</operation>
+    </file>
+
+    <file name="catalog/controller/seller/catalog-seller.php">
+		<operation error="skip">
+			<search position="after"><![CDATA[$this->load->model('catalog/product');]]></search>
+			<add><![CDATA[
+                $this->load->model('journal2/product');
+            ]]></add>
+		</operation>
+		<operation error="log">
+            <search position="before"><![CDATA[$this->data['seller']['products'][] = array(]]></search>
+            <add><![CDATA[
+                $date_end = false;
+                if ($this->config->get('config_template') === 'journal2' && $special && $this->journal2->settings->get('show_countdown', 'never') !== 'never') {
+                    $this->load->model('journal2/product');
+                    $date_end = $this->model_journal2_product->getSpecialCountdown($product['product_id']);
+                    if ($date_end === '0000-00-00') {
+                        $date_end = false;
+                    }
+                }
+            ]]></add>
+        </operation>
+        <operation error="skip">
+            <search position="after"><![CDATA['thumb' => $image,]]></search>
+            <add><![CDATA[
+                'labels'        => $this->model_journal2_product->getLabels($product['product_id']),
+                'date_end'       => $date_end,
+            ]]></add>
+        </operation>
+	</file>
+
+</modification>
