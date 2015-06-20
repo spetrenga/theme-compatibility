@@ -20,19 +20,7 @@
 		</operation>
 	</file>
 
-  <!-- add to cart -->
-  <file name="catalog/view/theme/journal2/template/journal2/module/carousel_product.tpl,catalog/view/theme/journal2/template/journal2/module/custom_sections_product.tpl,catalog/view/theme/journal2/template/journal2/module/super_filter_product.tpl">
-    <operation error="skip">
-      <search position="replace"><![CDATA[
-      addToCart
-      ]]></search>
-      <add><![CDATA[
-      ms_addToCart
-      ]]></add>
-    </operation>
-  </file>
-	
-	<!-- journal layout -->
+  	<!-- journal layout -->
 	<file name="catalog/view/theme/journal2/template/multiseller/*.tpl,catalog/view/theme/journal2/template/account/register-seller.tpl">
 		<!-- add #container to .container -->
 		<operation error="skip">
