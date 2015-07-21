@@ -308,11 +308,6 @@ padding:20px;
   margin-bottom: 8px;
 }
 
-
-
-
-
-
-
-
-
+textarea#ms-sellercontact-text {
+    padding: 0;
+}
